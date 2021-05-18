@@ -74,7 +74,7 @@ public class UserController {
 
     @GetMapping("/employee/availability")
     public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
-        List<Employee> employeeList = employeeService.findEmployeesForService(employeeDTO);
+        List<Employee> employeeList = employeeService.findEmployeesForService(employeeDTO.getDate(),employeeDTO.getSkills());
         List<EmployeeDTO> employeeDTOS = new ArrayList<>();
         for(Employee employee : employeeList){
             employeeDTOS.add(convertEmployeeEntityToDTO(employee));

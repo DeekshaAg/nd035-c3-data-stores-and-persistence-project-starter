@@ -43,13 +43,13 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public List<Employee> findEmployeesForService(EmployeeRequestDTO employeeRequestDTO) {
+    public List<Employee> findEmployeesForService(LocalDate date, Set<EmployeeSkill> activities) {
         List<Employee> employeeList;
         List<Employee> result = new ArrayList<>();
-        DayOfWeek day =employeeRequestDTO.getDate().getDayOfWeek();
+        DayOfWeek day =date.getDayOfWeek();
         employeeList = employeeRepository.findAllByDaysAvailableContaining(day);
         for(Employee employee: employeeList){
-            if(employee.getSkills().containsAll(employeeRequestDTO.getSkills()))
+            if(employee.getSkills().containsAll(activities))
                 result.add(employee);
         }
         return result;
