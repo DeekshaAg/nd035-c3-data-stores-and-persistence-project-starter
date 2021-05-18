@@ -8,10 +8,11 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name="pet")
+@NamedQuery(query = "select p from Pet p where p.owner = :ownerId", name = "Pet.findByOwner")
 public class Pet {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String name;
@@ -22,7 +23,7 @@ public class Pet {
 
     private LocalDate birthDate;
 
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch= FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name="owner_id")
     private Customer owner;
 
